@@ -30,13 +30,16 @@ jobs:
         run: vendor/bin/phpunit --colors=always
 
   publish:
-    needs: test # only trigger if “test” job passes
+    needs: test
     runs-on: ubuntu-latest
-
     steps:
-      - name: Trigger Packagist update
-        uses: wscourge/gha-packagist-publish@v1.0
-        with:
-          package: vemetric/vemetric-php
-          username: ${{ secrets.PACKAGIST_USERNAME }}
-          api_token: ${{ secrets.PACKAGIST_TOKEN }}
+      - name: Notify Packagist
+        env:
+          USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
+          TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+          REPO_URL: https://github.com/Vemetric/vemetric-php
+        run: |
+          curl -s -X POST \
+            -H 'Content-Type: application/json' \
+            -d '{"repository":{"url":"'"$REPO_URL"'"}}' \
+            "https://packagist.org/api/update-package?username=${USERNAME}&apiToken=${TOKEN}"
