@@ -35,8 +35,8 @@ jobs:
 
     steps:
       - name: Trigger Packagist update
-        uses: packagist/action@v1
+        uses: wscourge/gha-packagist-publish@v1.0
         with:
-          package: vemetric/vemetric-php # vendor/package on Packagist
+          package: vemetric/vemetric-php
           username: ${{ secrets.PACKAGIST_USERNAME }}
-          token: ${{ secrets.PACKAGIST_TOKEN }}
+          api_token: ${{ secrets.PACKAGIST_TOKEN }}
