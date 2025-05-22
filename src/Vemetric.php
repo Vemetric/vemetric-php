@@ -12,10 +12,9 @@ final class Vemetric
 {
     private string $token;
     private string $host;
-
     private Client $http;
 
-    public function __construct(array $options)
+    public function __construct(array $options, ?Client $httpClient = null)
     {
         if (empty($options['token'])) {
             throw new \InvalidArgumentException('Vemetric: "token" is required.');
@@ -24,7 +23,7 @@ final class Vemetric
         $this->token = $options['token'];
         $this->host  = rtrim($options['host'] ?? 'https://hub.vemetric.com', '/');
 
-        $this->http  = new Client([
+        $this->http = $httpClient ?? new Client([
             'base_uri' => $this->host,
             'timeout'  => $options['timeout'] ?? 2.0,
             'headers'  => [

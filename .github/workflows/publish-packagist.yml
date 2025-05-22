@@ -1,0 +1,42 @@
+name: CI & Publish to Packagist
+
+on:
+  push:
+    tags:
+      - "v*" # any tag that begins with v
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: curl
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Composer validate
+        run: composer validate --strict
+
+      - name: PHPUnit
+        run: vendor/bin/phpunit --colors=always
+
+  publish:
+    needs: test # only trigger if “test” job passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Packagist update
+        uses: packagist/action@v1
+        with:
+          package: vemetric/vemetric-php # vendor/package on Packagist
+          username: ${{ secrets.PACKAGIST_USERNAME }}
+          token: ${{ secrets.PACKAGIST_TOKEN }}
