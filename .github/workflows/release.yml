@@ -7,6 +7,15 @@ on:
         description: "Version to release (e.g., 0.0.1)"
         required: true
         type: string
+      message:
+        description: "Message to include in the release"
+        required: true
+        type: string
+
+# Add permissions block
+permissions:
+  contents: write # Required for creating releases
+  packages: write # Required for creating packages
 
 jobs:
   test:
@@ -48,6 +57,7 @@ jobs:
           name: v${{ github.event.inputs.version }}
           draft: false
           prerelease: false
+          body: ${{ github.event.inputs.message }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
