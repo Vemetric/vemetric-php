@@ -1,9 +1,12 @@
-name: CI & Publish to Packagist
+name: Release
 
 on:
-  push:
-    tags:
-      - "v*" # any tag that begins with v
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., 0.0.1)"
+        required: true
+        type: string
 
 jobs:
   test:
@@ -33,6 +36,21 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Configure Git
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          name: v${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Notify Packagist
         env:
           USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
