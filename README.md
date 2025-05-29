@@ -6,6 +6,8 @@ Learn more about the Vemetric PHP SDK in the [official docs](https://vemetric.co
 
 You can also checkout the package on [Packagist](https://packagist.org/packages/vemetric/vemetric-php).
 
+[![Packagist Version](https://img.shields.io/packagist/v/vemetric/vemetric-php)](https://packagist.org/packages/vemetric/vemetric-php)
+
 ## Installation
 
 ```bash
