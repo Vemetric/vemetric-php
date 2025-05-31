@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Vemetric\Vemetric;
 
 $vemetric = new Vemetric([
-    'token' => 'WRlW37cPSLUAbXDk76wYU',
+    'token' => 'o1rySsGlUtFCyflo',
     'host' => 'http://localhost:4004',
 ]);
 
