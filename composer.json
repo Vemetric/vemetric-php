@@ -28,7 +28,7 @@
   ],
   "homepage": "https://vemetric.com/docs/sdks/php",
   "support": {
-    "issues": "https://github.com/Vemetric/vemetric-php/issues",
-    "source": "https://github.com/Vemetric/vemetric-php"
+    "issues": "https://github.com/vemetric/vemetric-php/issues",
+    "source": "https://github.com/vemetric/vemetric-php"
   }
 }

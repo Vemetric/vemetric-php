@@ -65,7 +65,7 @@ jobs:
         env:
           USERNAME: ${{ secrets.PACKAGIST_USERNAME }}
           TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
-          REPO_URL: https://github.com/Vemetric/vemetric-php
+          REPO_URL: https://github.com/vemetric/vemetric-php
         run: |
           curl -s -X POST \
             -H 'Content-Type: application/json' \
